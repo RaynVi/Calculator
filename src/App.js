@@ -20,32 +20,30 @@ function App() {
     }
   };
 
-  const onClickSign = (sign) => {
+  const usedSign = (symbol) => {
+    setSign(symbol);
+    setFirstValue(thirdValue);
+    setThirdValue(null);
+  };
+
+  const onClickSign = (symbol) => {
     if (firstValue == null) {
       setFirstValue(thirdValue);
       setThirdValue(null);
-      setSign(sign);
-    } else {
-      setSign(sign);
+    } else if (sign != null) {
+      setFirstValue(eval(firstValue + sign + secondValue));
+      setSecondValue(null);
     }
+    setSign(symbol);
   };
 
   const onClickEquals = () => {
-    if (sign === '+') {
-      setThirdValue(firstValue + secondValue);
-    } else if (sign === '-') {
-      setThirdValue(firstValue - secondValue);
-    } else if (sign === '/') {
-      setThirdValue(firstValue / secondValue);
-    } else if (sign === '*') {
-      setThirdValue(firstValue * secondValue);
-    }
+    setThirdValue(eval(firstValue + sign + secondValue));
     setFirstValue(null);
     setSecondValue(null);
     setSign(null);
   };
-  console.log(firstValue);
-  console.log(secondValue);
+
   return (
     <div className="App">
       <div>{firstValue}</div>
