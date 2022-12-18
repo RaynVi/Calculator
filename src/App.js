@@ -20,12 +20,6 @@ function App() {
     }
   };
 
-  const usedSign = (symbol) => {
-    setSign(symbol);
-    setFirstValue(thirdValue);
-    setThirdValue(null);
-  };
-
   const onClickSign = (symbol) => {
     if (firstValue == null) {
       setFirstValue(thirdValue);
