@@ -2,48 +2,43 @@ import React from 'react';
 import './App.css';
 
 function App() {
-  const [firstValue, setFirstValue] = React.useState(0);
-  const [secondValue, setSecondValue] = React.useState(null);
-  const [thirdValue, setThirdValue] = React.useState(null);
-  const [sign, setSign] = React.useState(null);
+  const [firstValue, setFirstValue] = React.useState('');
+  const [secondValue, setSecondValue] = React.useState('');
+  const [sign, setSign] = React.useState('');
 
   const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   const mathSigns = ['+', '-', '/', '*'];
   const equals = '=';
 
   const onClickNumber = (number) => {
-    setThirdValue(null);
-    if (sign === null) {
-      setFirstValue(firstValue * 10 + number);
-    } else {
-      setSecondValue(secondValue * 10 + number);
+    setFirstValue(firstValue + sign + number);
+    setSign('');
+    if (secondValue !== '') {
+      setSecondValue('');
     }
   };
 
   const onClickSign = (symbol) => {
-    if (firstValue == null) {
-      setFirstValue(thirdValue);
-      setThirdValue(null);
-    } else if (sign != null) {
-      setFirstValue(eval(firstValue + sign + secondValue));
-      setSecondValue(null);
+    if (secondValue !== '') {
+      setFirstValue(secondValue);
+      setSecondValue('');
+      setSign(symbol);
+    } else if (firstValue !== '') {
+      setSign(symbol);
     }
-    setSign(symbol);
   };
 
   const onClickEquals = () => {
-    setThirdValue(eval(firstValue + sign + secondValue));
-    setFirstValue(null);
-    setSecondValue(null);
-    setSign(null);
+    setSecondValue(eval(firstValue));
+    setFirstValue('');
   };
 
   return (
     <div className="App">
-      <div>{firstValue}</div>
-      <div>{sign}</div>
+      <div>
+        {firstValue} {sign}
+      </div>
       <div>{secondValue}</div>
-      <div>{thirdValue}</div>
       {numbers.map((n, i) => (
         <button onClick={() => onClickNumber(i)}>{n}</button>
       ))}
